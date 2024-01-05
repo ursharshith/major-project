@@ -33,7 +33,7 @@ function UserRegistration() {
       })
       .then(() => {
         axios
-          .post("http://localhost:8080/register", {
+          .post("https://project-wmxw.onrender.com/register", {
             firstname,
             lastname,
             phone,

@@ -12,28 +12,29 @@ const ResidentialAddressDetailsModel = require("./models/ResidentialAddressDetai
 const UserPersonalDetailsModel = require("./models/UserPersonalDetails");
 const UserResidentialDetailsModel = require("./models/UserResidentialDetails");
 const ApplicationMailsModel = require("./models/ApplicationMails");
-const path = require('path');
+const path = require("path");
 
 const app = express();
 app.use(express.json());
-const staticPath=path.join(__dirname,"./public/");
+const staticPath = path.join(__dirname, "./public/");
 app.use(express.static(staticPath));
 app.use(cors());
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-const DB = "mongodb+srv://mahipalkeluth143:uK0niUwwZG9FOCHp@majordb.cb49png.mongodb.net/major_project_db?retryWrites=true&w=majority";
+const DB =
+  "mongodb+srv://mahipalkeluth143:uK0niUwwZG9FOCHp@majordb.cb49png.mongodb.net/major_project_db?retryWrites=true&w=majority";
 
 mongoose.connect(DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB Atlas');
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MongoDB Atlas");
 });
 
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error:", err);
 });
 
 app.post("/user-signin", (req, res) => {
@@ -41,7 +42,12 @@ app.post("/user-signin", (req, res) => {
   UserRegistrationModel.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        res.json({status : "Success", firstname: user.firstname, lastname: user.lastname, wallet: user.wallet });
+        res.json({
+          status: "Success",
+          firstname: user.firstname,
+          lastname: user.lastname,
+          wallet: user.wallet,
+        });
       } else {
         res.json("password incorrect");
       }
@@ -119,17 +125,20 @@ app.put("/payment/:email", async (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public/uploads')
+    cb(null, "./public/uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
-  }
-})
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
 
 // const upload = multer({dest: 'images/'})
 const upload = multer({
-  storage:storage
-}).single('file');
+  storage: storage,
+}).single("file");
 
 app.post("/uploadPhoto", upload, async (req, res) => {
   console.log(req.file);
@@ -146,63 +155,63 @@ app.post("/uploadPhoto", upload, async (req, res) => {
   //   console.error(error);
   //   res.status(500).send('Internal Server Error');
   // }
-  PhotoModel.create({email:req.file.email, image: req.file.filename})
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err))
-})
+  PhotoModel.create({ email: req.file.email, image: req.file.filename })
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
-app.get('/getImage', (req, res) => {
+app.get("/getImage", (req, res) => {
   PhotoModel.find()
-  .then(result => res.json(result))
-  .catch(err => res.json(res))
-})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(res));
+});
 
 // STUDENT APPLICATION //
 
 app.post("/student_personal_details", (req, res) => {
   console.log(req.body);
-    StudentPersonalDetailsModel.create(req.body)
+  StudentPersonalDetailsModel.create(req.body)
     .then((result) => res.json(result))
-    .catch((err) => res.json(err))
-})
+    .catch((err) => res.json(err));
+});
 
 app.post("/student_study_details", (req, res) => {
   StudentStudyDetailsModel.create(req.body)
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err))
-})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
 app.post("/institution_detail", (req, res) => {
   InstitutionDetailsModel.create(req.body)
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err))
-})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
 app.post("/residential_address_details", (req, res) => {
   ResidentialAddressDetailsModel.create(req.body)
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err))
-})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
 // OTHER USER APPLICATION //
 
 app.post("/user_apply_personal_details", (req, res) => {
   UserPersonalDetailsModel.create(req.body)
-  .then((res) => res.json(res))
-  .catch((err) => res.json(err))
-})
+    .then((res) => res.json(res))
+    .catch((err) => res.json(err));
+});
 
 app.post("/user_apply_residential_details", (req, res) => {
   UserResidentialDetailsModel.create(req.body)
-  .then((res) => res.json(res))
-  .catch((err) => res.json(err))
-})
+    .then((res) => res.json(res))
+    .catch((err) => res.json(err));
+});
 
 app.post("/applicaiton_emails", (req, res) => {
   ApplicationMailsModel.create(req.body)
-  .then((res) => res.json(res))
-  .catch((err) => res.json(err))
-})
+    .then((res) => res.json(res))
+    .catch((err) => res.json(err));
+});
 
 //Image retrieve
 // app.get("/image_retrieve/:filename", async (req, res) => {
@@ -220,13 +229,13 @@ app.post("/applicaiton_emails", (req, res) => {
 
 app.get("/application_mails", (req, res) => {
   ApplicationMailsModel.find()
-  .then((result) => res.json(result))
-  .catch((err) => res.json(err));
-})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err));
+});
 
 app.get("/", (req, res) => {
-  console.log("Hii")
-})
+  console.log("Hii");
+});
 
 app.listen(PORT, () => {
   console.log(`server is running at port ${PORT}`);

@@ -81,7 +81,6 @@ export default function StudentDetails({ filename }) {
     navigate("/student/high-school/payment");
     // const formData = new FormData();
     // formData.append("file", file);
-
     // axios
     //   .post("https://project-wmxw.onrender.com/uploadPhoto", formData, {
     //     email,

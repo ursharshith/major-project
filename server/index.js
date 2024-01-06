@@ -18,11 +18,7 @@ const app = express();
 app.use(express.json());
 const staticPath = path.join(__dirname, "./public/");
 app.use(express.static(staticPath));
-app.use(
-  cors({
-    origin: ["https://project-wmxw.onrender.com/"],
-  })
-);
+app.use(cors());
 const PORT = process.env.PORT || 8080;
 
 const DB =
@@ -164,11 +160,11 @@ app.put("/payment/:email", async (req, res) => {
 //     .catch((err) => res.json(err));
 // });
 
-app.get("/getImage", (req, res) => {
-  PhotoModel.find()
-    .then((result) => res.json(result))
-    .catch((err) => res.json(res));
-});
+// app.get("/getImage", (req, res) => {
+//   PhotoModel.find()
+//     .then((result) => res.json(result))
+//     .catch((err) => res.json(res));
+// });
 
 // STUDENT APPLICATION //
 

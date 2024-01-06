@@ -4,7 +4,7 @@ const cors = require("cors");
 const UserRegistrationModel = require("./models/UserRegistration");
 const RouteDetailsModel = require("./models/RouteDetailsModel");
 const PhotoModel = require("./models/PhotoModel");
-const multer = require("multer");
+// const multer = require("multer");
 const StudentPersonalDetailsModel = require("./models/StudentPersonalDetails");
 const StudentStudyDetailsModel = require("./models/StudentStudyDetails");
 const InstitutionDetailsModel = require("./models/InstitutionDetails");
@@ -18,7 +18,11 @@ const app = express();
 app.use(express.json());
 const staticPath = path.join(__dirname, "./public/");
 app.use(express.static(staticPath));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://project-wmxw.onrender.com/"],
+  })
+);
 const PORT = process.env.PORT || 8080;
 
 const DB =
@@ -123,42 +127,42 @@ app.put("/payment/:email", async (req, res) => {
 
 // Image Upload and Retrive********
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./public/uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
 // const upload = multer({dest: 'images/'})
-const upload = multer({
-  storage: storage,
-}).single("file");
+// const upload = multer({
+//   storage: storage,
+// }).single("file");
 
-app.post("/uploadPhoto", upload, async (req, res) => {
-  console.log(req.file);
-  console.log(req.file.email);
-  // try {
-  //   const photo = new PhotoModel({
-  //     image: req.file.originalname,
-  //     filename: req.file.filename,
-  //   });
+// app.post("/uploadPhoto", upload, async (req, res) => {
+//   console.log(req.file);
+//   console.log(req.file.email);
+//   // try {
+//   //   const photo = new PhotoModel({
+//   //     image: req.file.originalname,
+//   //     filename: req.file.filename,
+//   //   });
 
-  //   await photo.save();
-  //   res.status(201).send(req.file.originalname);
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send('Internal Server Error');
-  // }
-  PhotoModel.create({ email: req.file.email, image: req.file.filename })
-    .then((result) => res.json(result))
-    .catch((err) => res.json(err));
-});
+//   //   await photo.save();
+//   //   res.status(201).send(req.file.originalname);
+//   // } catch (error) {
+//   //   console.error(error);
+//   //   res.status(500).send('Internal Server Error');
+//   // }
+//   PhotoModel.create({ email: req.file.email, image: req.file.filename })
+//     .then((result) => res.json(result))
+//     .catch((err) => res.json(err));
+// });
 
 app.get("/getImage", (req, res) => {
   PhotoModel.find()

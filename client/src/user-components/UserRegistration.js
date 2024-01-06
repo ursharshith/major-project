@@ -25,17 +25,27 @@ function UserRegistration() {
   const handleRegistration = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/register", {
-        firstname,
-        lastname,
-        phone,
-        email,
-        password,
-        wallet,
+      .post("https://project-wmxw.onrender.com/user-signin", { email })
+      .then((res) => {
+        if (res.data.status === "Success") {
+          alert("no");
+        }
       })
-      .then((result) => {
-        console.log(result);
-        navigate("/user-signin");
+      .then(() => {
+        axios
+          .post("https://project-wmxw.onrender.com/register", {
+            firstname,
+            lastname,
+            phone,
+            email,
+            password,
+            wallet,
+          })
+          .then((result) => {
+            console.log(result);
+            navigate("/user-signin");
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };

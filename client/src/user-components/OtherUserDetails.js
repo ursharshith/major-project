@@ -56,7 +56,7 @@ export default function OtherUserDetails({ filename }) {
     //   .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/user_apply_personal_details", {
+      .post("https://project-wmxw.onrender.com/user_apply_personal_details", {
         name,
         dob,
         gender,
@@ -70,19 +70,22 @@ export default function OtherUserDetails({ filename }) {
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/user_apply_residential_details", {
-        email,
-        district,
-        mandal,
-        village,
-        address,
-        postalCode,
-      })
+      .post(
+        "https://project-wmxw.onrender.com/user_apply_residential_details",
+        {
+          email,
+          district,
+          mandal,
+          village,
+          address,
+          postalCode,
+        }
+      )
       .then((res) => {})
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/applicaiton_emails", {
+      .post("https://project-wmxw.onrender.com/applicaiton_emails", {
         email,
       })
       .then((res) => {})
@@ -105,7 +108,7 @@ export default function OtherUserDetails({ filename }) {
     // } else if (mobileNo.length <= 0) {
     //   alert("Mobile number is required");
     // } else {
-      setReview(true);
+    setReview(true);
     // }
   };
 
@@ -369,8 +372,8 @@ export default function OtherUserDetails({ filename }) {
             <spam>APPLICATION</spam>
           </Typography>
           <div style={{ display: "flex", flex: 1, margin: "20px" }}>
-            <div style={{ flex: 1, margin:"20px" }}>
-            <TableContainer component={Paper}>
+            <div style={{ flex: 1, margin: "20px" }}>
+              <TableContainer component={Paper}>
                 <Typography
                   variant="h5"
                   gutterBottom
@@ -379,7 +382,7 @@ export default function OtherUserDetails({ filename }) {
                     fontSize: "20px",
                   }}
                 >
-                Student Details
+                  Student Details
                 </Typography>
                 <Table>
                   <TableHead style={{ backgroundColor: "#f2f2f2" }}>
@@ -430,7 +433,7 @@ export default function OtherUserDetails({ filename }) {
               </TableContainer>
             </div>
             <div style={{ flex: 1, margin: "20px" }}>
-            <TableContainer component={Paper}>
+              <TableContainer component={Paper}>
                 <Typography
                   variant="h5"
                   gutterBottom
@@ -439,7 +442,7 @@ export default function OtherUserDetails({ filename }) {
                     fontSize: "20px",
                   }}
                 >
-                   Residential Address Details
+                  Residential Address Details
                 </Typography>
                 <Table>
                   <TableHead style={{ backgroundColor: "#f2f2f2" }}>
@@ -479,10 +482,19 @@ export default function OtherUserDetails({ filename }) {
             </div>
           </div>
           <div style={{ margin: "auto" }}>
-            <Button type="text" onClick={handleEdit} style={{marginRight:"8px"}} variant="outlined">
+            <Button
+              type="text"
+              onClick={handleEdit}
+              style={{ marginRight: "8px" }}
+              variant="outlined"
+            >
               Edit
             </Button>
-            <Button type="text" onClick={handleStudentDetailsNext} variant="outlined">
+            <Button
+              type="text"
+              onClick={handleStudentDetailsNext}
+              variant="outlined"
+            >
               NEXT
             </Button>
           </div>

@@ -83,12 +83,14 @@ export default function StudentDetails({ filename }) {
     formData.append("file", file);
 
     axios
-      .post("http://localhost:8080/uploadPhoto", formData, {email})
+      .post("https://project-wmxw.onrender.com/uploadPhoto", formData, {
+        email,
+      })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/student_personal_details", {
+      .post("https://project-wmxw.onrender.com/student_personal_details", {
         name,
         dob,
         gender,
@@ -102,7 +104,7 @@ export default function StudentDetails({ filename }) {
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/student_study_details", {
+      .post("https://project-wmxw.onrender.com/student_study_details", {
         email,
         sscBoard,
         sscType,
@@ -114,7 +116,7 @@ export default function StudentDetails({ filename }) {
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/residential_address_details", {
+      .post("https://project-wmxw.onrender.com/residential_address_details", {
         email,
         district,
         mandal,
@@ -126,7 +128,7 @@ export default function StudentDetails({ filename }) {
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/institution_detail", {
+      .post("https://project-wmxw.onrender.com/institution_detail", {
         districtInstitution,
         mandalInstitution,
         institutionname,
@@ -138,7 +140,7 @@ export default function StudentDetails({ filename }) {
       .catch((err) => console.log(err));
 
     axios
-      .post("http://localhost:8080/applicaiton_emails", {
+      .post("https://project-wmxw.onrender.com/applicaiton_emails", {
         email,
       })
       .then((res) => {})
@@ -152,15 +154,15 @@ export default function StudentDetails({ filename }) {
   const handleNextPreview = () => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("email", email)
+    formData.append("email", email);
 
     axios
-      .post("http://localhost:8080/uploadPhoto", formData)
-      .then((res) =>{
-         console.log(res)
-         setImageUrl(res.data)
-         console.log(res.data.image)
-         console.log("Image ", imageUrl)
+      .post("https://project-wmxw.onrender.com/uploadPhoto", formData)
+      .then((res) => {
+        console.log(res);
+        setImageUrl(res.data);
+        console.log(res.data.image);
+        console.log("Image ", imageUrl);
       })
       .catch((err) => console.log(err));
 
@@ -300,10 +302,9 @@ export default function StudentDetails({ filename }) {
             }}
           >
             <spam>Student Details</spam>
-            
           </Typography>
           <div className="sub-divs">
-          {/* <img src="http://localhost:8080/uploads/undefined_1703529902891.jpg" alt="images"/> */}
+            {/* <img src="http://localhost:8080/uploads/undefined_1703529902891.jpg" alt="images"/> */}
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -710,7 +711,7 @@ export default function StudentDetails({ filename }) {
                     fontSize: "20px",
                   }}
                 >
-                   Residential Address Details
+                  Residential Address Details
                 </Typography>
                 <Table>
                   <TableHead style={{ backgroundColor: "#f2f2f2" }}>
@@ -760,7 +761,7 @@ export default function StudentDetails({ filename }) {
                     fontSize: "20px",
                   }}
                 >
-                Student Details
+                  Student Details
                 </Typography>
                 <Table>
                   <TableHead style={{ backgroundColor: "#f2f2f2" }}>
@@ -865,10 +866,19 @@ export default function StudentDetails({ filename }) {
           </div>
           <div style={{ margin: "auto" }}>
             <img src={`http://localhost:8080/${imageUrl}`} alt="" />
-            <Button type="text" onClick={handleEdit} variant="outlined" style={{marginRight:"8px"}}>
+            <Button
+              type="text"
+              onClick={handleEdit}
+              variant="outlined"
+              style={{ marginRight: "8px" }}
+            >
               Edit
             </Button>
-            <Button type="text" onClick={handleStudentDetailsNext} variant="outlined">
+            <Button
+              type="text"
+              onClick={handleStudentDetailsNext}
+              variant="outlined"
+            >
               NEXT
             </Button>
           </div>

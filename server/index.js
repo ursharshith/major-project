@@ -18,7 +18,11 @@ const app = express();
 app.use(express.json());
 const staticPath = path.join(__dirname, "./public/");
 app.use(express.static(staticPath));
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://project-wmxw.onrender.com",
+  })
+);
 const PORT = process.env.PORT || 8080;
 
 const DB =

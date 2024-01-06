@@ -79,15 +79,15 @@ export default function StudentDetails({ filename }) {
 
   const handleStudentDetailsNext = () => {
     navigate("/student/high-school/payment");
-    const formData = new FormData();
-    formData.append("file", file);
+    // const formData = new FormData();
+    // formData.append("file", file);
 
-    axios
-      .post("https://project-wmxw.onrender.com/uploadPhoto", formData, {
-        email,
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+    // axios
+    //   .post("https://project-wmxw.onrender.com/uploadPhoto", formData, {
+    //     email,
+    //   })
+    //   .then((res) => console.log(res.data))
+    //   .catch((err) => console.log(err));
 
     axios
       .post("https://project-wmxw.onrender.com/student_personal_details", {
